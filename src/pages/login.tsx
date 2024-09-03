@@ -11,7 +11,7 @@ const Login = () => {
   return (
     <Fragment>
       <Head>
-        <title>PROJECT_NAME | Login</title>
+        <title>Hamzaa | Login</title>
       </Head>
       <LoginView />
     </Fragment>

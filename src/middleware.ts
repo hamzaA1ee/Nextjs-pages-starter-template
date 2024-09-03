@@ -11,7 +11,7 @@ export function middleware(req: NextRequest) {
   }
   const publicRoutes = ["/login", "/signup"];
 
-  const protectedRoutes = ["/"];
+  const protectedRoutes = ["/",'/dashboard'];
 
   if (token && publicRoutes.includes(pathname)) {
     return NextResponse.redirect(new URL("/", req.url));
