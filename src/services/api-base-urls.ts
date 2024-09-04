@@ -11,7 +11,7 @@ const PRODUCTION_URL = process.env.NEXT_PUBLIC_API_URL as string;
 /**
  * Local URL that will be treated as global start-point and is connected to local backend or AWS Elastic API.
  */
-const LOCAL_URL = "'https://dummyjson.com" as string;
+const LOCAL_URL = "https://dummyjson.com" as string;
 
 /**
  * Base URL that will be treated as global start-point.
@@ -24,6 +24,8 @@ export const URL = {
   USER_LOGIN: `${BASE_URL}/auth/login`,
 
   GET_USER: `${BASE_URL}/auth/me`,
+
+  GET_PROUDCTS:`${BASE_URL}/products`,
   // ======================== File Upload ========================
 
   UPLOAD_PDF: (uid: string | string[]) => `${BASE_URL}/S3/fileUpload/${uid}`,

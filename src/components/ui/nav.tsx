@@ -1,12 +1,17 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { useRouter } from "next/router";
 import { Button } from "./button";
 import { getCookie } from "cookies-next";
 import { removeCookie } from "@/utils/storage.util";
+import { useAppSelector } from "@/redux/store";
 
 export default function Nav() {
   const router = useRouter();
+  const user = useAppSelector((state) => state.authenticationSlice.user);
+  console.log({ user });
+  const [isLoading, setIsLoading] = useState(false);
   const handleLogout = () => {
+    setIsLoading(false);
     removeCookie("accessToken");
 
     router.push("/login");
@@ -111,22 +116,35 @@ export default function Nav() {
           </div>
           <div className="hidden space-x-2 lg:block">
             {getCookie("accessToken") ? (
-              <Button
-                type="button"
-                className="rounded-md border border-black px-3 py-2 text-sm font-semibold text-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-                onClick={() => router.push("/login")}
-              >
-                Log out
-              </Button>
-            ) : (
-              <Button
+              <button
                 type="button"
                 className="rounded-md border border-black px-3 py-2 text-sm font-semibold text-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
                 onClick={handleLogout}
               >
+                Log out
+              </button>
+            ) : (
+              <Button
+                disabled={isLoading}
+                type="button"
+                className="rounded-md border border-black px-3 py-2 text-sm font-semibold text-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                onClick={() => {
+                  router.push("/login");
+                }}
+              >
                 Log In
               </Button>
             )}
+          </div>
+          <div className="ml-2 mt-2 hidden lg:block">
+            <span className="relative inline-block">
+              <img
+                className="h-10 w-10 rounded-full ml-3"
+                src={user?.image}
+                alt="Dan_Abromov"
+              />
+              <span className="absolute bottom-0 right-0 block h-2.5 w-2.5 rounded-full bg-green-600 ring-2 ring-white"></span>
+            </span>
           </div>
           <div className="lg:hidden">
             <svg

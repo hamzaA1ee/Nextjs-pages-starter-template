@@ -13,7 +13,7 @@ export function middleware(req: NextRequest) {
   }
   const publicRoutes = ["/login", "/signup"];
 
-  const protectedRoutes = ["/", "/dashboard"];
+  const protectedRoutes = ["/", "/dashboard","/product"];
 
   if (token && publicRoutes.includes(pathname)) {
     return NextResponse.redirect(new URL("/dashboard", req.url));

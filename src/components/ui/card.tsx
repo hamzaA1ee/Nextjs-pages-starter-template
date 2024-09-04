@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import Image from "next/image";
-
+import Link from "next/link";
 interface Products {
   id: number;
   title: string;
@@ -23,7 +23,11 @@ export default function Card({ product }: cardProducts) {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
         <div className="absolute bottom-4 left-4 text-left">
-          <h1 className="text-lg font-semibold text-white">{product.title}</h1>
+          <Link href={`/product/${product.id}`}>
+            <h1 className="text-lg font-semibold text-white">
+              {product.title}
+            </h1>
+          </Link>
           <p className="mt-2 text-sm text-gray-300">{product.description}</p>
         </div>
       </div>

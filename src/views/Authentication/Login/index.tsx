@@ -5,6 +5,7 @@ import { FC, Fragment, useState } from "react";
 
 import { useRouter } from "next/router";
 import { setCookieClientSideFn } from "@/utils/storage.util";
+import { updateUser } from "@/redux/slices/authentication.slice";
 
 interface ISignInViewProps {}
 
@@ -26,28 +27,38 @@ const SignInView: FC<ISignInViewProps> = () => {
   };
 
   const login = async (name: string, pass: string) => {
-    setLoading(true);
-    setError("");
-    const res: Response = await fetch("https://dummyjson.com/user/login", {
-      headers: { "Content-Type": "application/json" },
-      method: "POST",
-      body: JSON.stringify({
-        username: name,
-        password: pass,
-        expiresInMin: 30,
-      }),
-    });
+    try {
+      setLoading(true);
+      setError("");
+      const res: Response = await fetch("https://dummyjson.com/user/login", {
+        headers: { "Content-Type": "application/json" },
+        method: "POST",
+        body: JSON.stringify({
+          username: name,
+          password: pass,
+          expiresInMin: 30,
+        }),
+      });
 
-    if (!res.ok) {
-      setTimeout(() => setError(""), 5000);
-      setError("Invalid credentials");
-      setLoading(false);
-    } else {
+      if (!res.ok) {
+        throw new Error("Invalid Credentials.");
+      }
+
       const data = await res.json();
-      setCookieClientSideFn("accessToken", data);
+
+      setCookieClientSideFn("accessToken", data.token);
+      updateUser({ data });
+
       router.push("/dashboard");
+    } catch (error) {
+      setTimeout(() => setError(""), 5000);
+      console.log(error);
+      setError("Invalid credentials");
+    } finally {
+      setLoading(false);
     }
   };
+
   return (
     <Fragment>
       <div className="bg-black text-white flex min-h-screen flex-col items-center pt-16 sm:justify-center sm:pt-0">
