@@ -2,7 +2,8 @@ import { Fragment } from "react";
 import { useRouter } from "next/router";
 import { Button } from "./button";
 import { getCookie } from "cookies-next";
-import { removeCookie, setCookieClientSideFn } from "@/utils/storage.util";
+import { removeCookie } from "@/utils/storage.util";
+
 export default function Nav() {
   const router = useRouter();
   const handleLogout = () => {
@@ -48,9 +49,9 @@ export default function Nav() {
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                       className="ml-2 h-4 w-4"
                     >
                       <polyline points="6 9 12 15 18 9"></polyline>
@@ -72,9 +73,9 @@ export default function Nav() {
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                       className="ml-2 h-4 w-4"
                     >
                       <polyline points="6 9 12 15 18 9"></polyline>
@@ -96,9 +97,9 @@ export default function Nav() {
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                       className="ml-2 h-4 w-4"
                     >
                       <polyline points="6 9 12 15 18 9"></polyline>
@@ -135,9 +136,9 @@ export default function Nav() {
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               className="h-6 w-6 cursor-pointer"
             >
               <line x1="4" y1="12" x2="20" y2="12"></line>

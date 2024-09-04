@@ -1,13 +1,8 @@
 // React Imports
 import { FC, Fragment, useState } from "react";
-import { cookies } from "next/headers";
-
-// React Query Imports
-import { UserLoginMutationHook } from "@/services/react-query-client/auth/user-login";
 
 // Custom Component Imports
-import { Button } from "@/components/ui/button";
-import { error } from "console";
+
 import { useRouter } from "next/router";
 import { setCookieClientSideFn } from "@/utils/storage.util";
 
@@ -19,7 +14,6 @@ const SignInView: FC<ISignInViewProps> = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const { mutateAsync } = UserLoginMutationHook();
 
   /**
    * @description Handles the login process for the user
@@ -34,7 +28,7 @@ const SignInView: FC<ISignInViewProps> = () => {
   const login = async (name: string, pass: string) => {
     setLoading(true);
     setError("");
-    const res: any = await fetch("https://dummyjson.com/user/login", {
+    const res: Response = await fetch("https://dummyjson.com/user/login", {
       headers: { "Content-Type": "application/json" },
       method: "POST",
       body: JSON.stringify({
@@ -45,13 +39,13 @@ const SignInView: FC<ISignInViewProps> = () => {
     });
 
     if (!res.ok) {
+      setTimeout(() => setError(""), 5000);
       setError("Invalid credentials");
       setLoading(false);
     } else {
       const data = await res.json();
-      console.log(data);
-      router.push("/dashboard");
       setCookieClientSideFn("accessToken", data);
+      router.push("/dashboard");
     }
   };
   return (
@@ -105,9 +99,9 @@ const SignInView: FC<ISignInViewProps> = () => {
                             className="w-6 h-6"
                           >
                             <path
-                              fill-rule="evenodd"
+                              fillRule="evenodd"
                               d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
-                              clip-rule="evenodd"
+                              clipRule="evenodd"
                             />
                           </svg>
                         </div>
@@ -118,7 +112,7 @@ const SignInView: FC<ISignInViewProps> = () => {
                         }
                         type="text"
                         name="username"
-                        placeholder="Username"
+                        placeholder="example123"
                         className="block w-full border-0 bg-transparent p-0 text-sm file:my-1 file:rounded-full file:border-0 file:bg-accent file:px-4 file:py-2 file:font-medium placeholder:text-muted-foreground/90 focus:outline-none focus:ring-0 sm:leading-7 text-foreground"
                         required
                       />
@@ -140,6 +134,7 @@ const SignInView: FC<ISignInViewProps> = () => {
                           }
                           type="password"
                           name="password"
+                          placeholder="********"
                           className="block w-full border-0 bg-transparent p-0 text-sm file:my-1 placeholder:text-muted-foreground/90 focus:outline-none focus:ring-0 focus:ring-teal-500 sm:leading-7 text-foreground"
                           required
                         />

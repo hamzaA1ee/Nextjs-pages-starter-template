@@ -13,7 +13,7 @@ interface Products {
   thumbnail: string;
 }
 interface cardProducts {
-  products: Products;
+  products: Products[];
 }
 const Products = ({ products }: cardProducts) => {
   return (
@@ -21,7 +21,7 @@ const Products = ({ products }: cardProducts) => {
       <Head>
         <title>Hamzaa | Dashboard</title>
       </Head>
-      <DashboardView prod={products} />
+      <DashboardView product={products} />
     </Fragment>
   );
 };
